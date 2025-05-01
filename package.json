@@ -4,6 +4,7 @@
   "description": "Sistema de inventario de escritorio con React y Electron",
   "author": "eidercoboitservices <eidercoboitservices@gmail.com> (+57 3003925981)",
   "main": "main.js",
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "electron-start": "electron .",
@@ -11,7 +12,6 @@
     "electron-pack": "electron-builder"
   },
   "build": {
-    "extends": null,
     "appId": "com.mi-inventario",
     "productName": "Mi Inventario",
     "directories": {
@@ -23,6 +23,9 @@
       "preload.js",
       "node_modules/**/*"
     ],
+    "extraMetadata": {
+      "main": "main.js"
+    },
     "win": {
       "target": "nsis"
     },

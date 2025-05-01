@@ -1,13 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
-
 const { autoUpdater } = require('electron-updater');
-
-app.whenReady().then(() => {
-  createWindow();
-  autoUpdater.checkForUpdatesAndNotify(); // para Verificar y descarga nuevas versiones
-});
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -20,11 +14,13 @@ function createWindow() {
     }
   });
 
-  win.loadURL('http://localhost:3000');
+  // ✅ Cargar la interfaz empaquetada
+  win.loadFile(path.join(__dirname, 'build', 'index.html'));
 }
 
 app.whenReady().then(() => {
   createWindow();
+  autoUpdater.checkForUpdatesAndNotify();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -35,7 +31,7 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
 
-// RESPALDO
+// ✅ RESPALDO
 ipcMain.handle('backup', async () => {
   const { filePath } = await dialog.showSaveDialog({
     title: 'Guardar copia de seguridad',
@@ -54,7 +50,7 @@ ipcMain.handle('backup', async () => {
   }
 });
 
-// RESTAURAR
+// ✅ RESTAURAR
 ipcMain.handle('restore', async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     title: 'Restaurar respaldo',
