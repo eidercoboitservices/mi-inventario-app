@@ -1,0 +1,68 @@
+{
+  "name": "mi-inventario",
+  "version": "1.0.1",
+  "description": "Sistema de inventario de escritorio con React y Electron",
+  "author": "eidercoboitservices <eidercoboitservices@gmail.com> (+57 3003925981)",
+  "main": "main.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "electron-start": "electron .",
+    "build": "react-scripts build",
+    "electron-pack": "electron-builder"
+  },
+  "build": {
+    "extends": null,
+    "appId": "com.mi-inventario",
+    "productName": "Mi Inventario",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "main.js",
+      "preload.js",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "eidercoboitservices",
+        "repo": "mi-inventario-app"
+      }
+    ]
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.1",
+    "lucide-react": "^0.503.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.5.3",
+    "react-scripts": "^5.0.1",
+    "react-toastify": "^11.0.5"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "@types/minimatch": "^5.1.2",
+    "@types/ms": "^2.1.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.3",
+    "@types/react-router-dom": "^5.3.3",
+    "electron": "^23.0.0",
+    "electron-builder": "^23.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
