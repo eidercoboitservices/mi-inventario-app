@@ -7,9 +7,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Build
+node_modules/
+dist/
+dist-ssr/
+build/
+*.blockmap
 *.local
 
 # Editor directories and files
