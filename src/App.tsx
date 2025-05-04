@@ -21,22 +21,38 @@ import Profile from './pages/auth/Profile';
 import Subscription from './pages/subscription/Subscription';
 import NotFound from './pages/NotFound';
 
+// Backup/Restore buttons
+const BackupRestoreButtons = () => {
+  const handleBackup = () => {
+    // @ts-ignore
+    window.api.backup();
+  };
+
+  const handleRestore = () => {
+    // @ts-ignore
+    window.api.restore();
+  };
+
+  return (
+    <div className="p-4 space-x-2">
+      <button onClick={handleBackup} className="bg-blue-500 text-white px-4 py-2 rounded">
+        Crear Respaldo
+      </button>
+      <button onClick={handleRestore} className="bg-green-500 text-white px-4 py-2 rounded">
+        Restaurar Respaldo
+      </button>
+    </div>
+  );
+};
+
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    const handleBackup = () => {
-      // @ts-ignore
-      window.api.backup();
-    };
-
     return (
-      <>
-        <button onClick={handleBackup}>Crear copia de seguridad</button>
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-        </div>
-      </>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
     );
   }
 
@@ -83,7 +99,9 @@ function App() {
               <Route
                 element={
                   <ProtectedRoute>
-                    <DashboardLayout />
+                    <DashboardLayout>
+                      <BackupRestoreButtons />
+                    </DashboardLayout>
                   </ProtectedRoute>
                 }
               >

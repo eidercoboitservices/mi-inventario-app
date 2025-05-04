@@ -1,6 +1,6 @@
 {
   "name": "mi-inventario",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Sistema de inventario de escritorio con React y Electron",
   "author": "eidercoboitservices <eidercoboitservices@gmail.com> (+57 3003925981)",
   "main": "main.js",
@@ -14,6 +14,7 @@
   "build": {
     "appId": "com.mi-inventario",
     "productName": "Mi Inventario",
+    "asar": true,
     "directories": {
       "output": "dist"
     },
@@ -27,7 +28,8 @@
       "main": "main.js"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "assets/icon.ico"
     },
     "publish": [
       {
