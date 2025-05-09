@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+// Código corregido para Login.tsx con verificación de versiones y mensaje de soporte
+
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Login = () => {
@@ -6,18 +8,47 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const { login } = useAuth();
-  
+
+  // Verificación de versión frontend y backend
+  useEffect(() => {
+    const localFrontendVersion = '1.0.2';
+    const localBackendVersion = '1.0.2';
+
+    const checkVersions = async () => {
+      try {
+        // Verificar frontend
+        const frontendRes = await fetch('/version.json');
+        const frontendData = await frontendRes.json();
+        if (frontendData.version !== localFrontendVersion) {
+          alert('Nueva versión del frontend disponible. Se actualizará.');
+          window.location.reload(true);
+        }
+
+        // Verificar backend
+        const backendRes = await fetch('/api/version');
+        const backendData = await backendRes.json();
+        if (backendData.version !== localBackendVersion) {
+          alert('Nueva versión del backend disponible. Contacta soporte si notas inconsistencias.');
+        }
+      } catch (err) {
+        console.error('Error al verificar versiones:', err);
+      }
+    };
+
+    checkVersions();
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    
+
     if (!email || !password) {
       setError('Please enter both email and password');
       return;
     }
-    
+
     try {
       setLoading(true);
       await login(email, password);
@@ -31,17 +62,17 @@ const Login = () => {
       setLoading(false);
     }
   };
-  
+
   return (
     <div>
       <h3 className="text-lg font-medium text-gray-900 mb-4">Inicia sesión en tu cuenta</h3>
-      
+
       {error && (
         <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-md text-sm">
           {error}
         </div>
       )}
-      
+
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -56,7 +87,7 @@ const Login = () => {
             placeholder="you@example.com"
           />
         </div>
-        
+
         <div className="mb-6">
           <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
             Password
@@ -70,7 +101,7 @@ const Login = () => {
             placeholder="••••••••"
           />
         </div>
-        
+
         <div>
           <button
             type="submit"
@@ -93,11 +124,13 @@ const Login = () => {
           </button>
         </div>
       </form>
-      
-      
-        </div>
-      
-    
+
+      {/* Información de versión y soporte */}
+      <div className="mt-6 text-sm text-gray-500 text-center">
+        <p>Versión: 1.0.2</p>
+        <p>Soporte: eidercoboitservices@gmail.com | WhatsApp: +57 300 3925981</p>
+      </div>
+    </div>
   );
 };
 

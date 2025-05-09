@@ -7,7 +7,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1024,
     height: 768,
-    icon: path.join(__dirname, 'assets', 'icon.ico'), // ← Icono correcto
+    icon: path.join(__dirname, 'assets', 'icon.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -16,10 +16,37 @@ function createWindow() {
   });
 
   win.loadFile(path.join(__dirname, 'build', 'index.html'));
+
+  // Mostrar mensajes durante el proceso de actualización
+  autoUpdater.on('checking-for-update', () => {
+    console.log('Buscando actualizaciones...');
+  });
+
+  autoUpdater.on('update-available', () => {
+    console.log('Actualización disponible. Descargando...');
+  });
+
+  autoUpdater.on('update-not-available', () => {
+    console.log('La aplicación está actualizada.');
+  });
+
+  autoUpdater.on('error', (err) => {
+    console.error('Error al buscar actualizaciones:', err);
+  });
+
+  autoUpdater.on('download-progress', (progressObj) => {
+    let log_message = `Descargando... ${Math.round(progressObj.percent)}%`;
+    console.log(log_message);
+  });
+
+  autoUpdater.on('update-downloaded', () => {
+    console.log('Actualización descargada. Reiniciando aplicación...');
+    autoUpdater.quitAndInstall();
+  });
 }
 
 app.whenReady().then(() => {
-  createDataFile(); // ← Crear archivo inicial si no existe
+  createDataFile();
   createWindow();
   autoUpdater.checkForUpdatesAndNotify();
 
@@ -32,21 +59,15 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit();
 });
 
-// ✅ Crear archivo app.json si no existe
+// Crear archivo app.json si no existe
 function createDataFile() {
   const dirPath = path.join(app.getPath('userData'), 'data');
   const dataPath = path.join(dirPath, 'app.json');
 
   try {
-    if (!fs.existsSync(dirPath)) {
-      fs.mkdirSync(dirPath, { recursive: true });
-    }
-
+    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
     if (!fs.existsSync(dataPath)) {
-      const defaultData = {
-        productos: [],
-        configuracion: {}
-      };
+      const defaultData = { productos: [], configuracion: {} };
       fs.writeFileSync(dataPath, JSON.stringify(defaultData, null, 2));
       console.log('Archivo app.json creado en:', dataPath);
     }
@@ -55,7 +76,7 @@ function createDataFile() {
   }
 }
 
-// ✅ RESPALDO
+// RESPALDO
 ipcMain.handle('backup', async () => {
   const { filePath } = await dialog.showSaveDialog({
     title: 'Guardar copia de seguridad',
@@ -65,12 +86,8 @@ ipcMain.handle('backup', async () => {
 
   if (filePath) {
     const dataPath = path.join(app.getPath('userData'), 'data', 'app.json');
-
     try {
-      if (!fs.existsSync(dataPath)) {
-        throw new Error('El archivo app.json no existe.');
-      }
-
+      if (!fs.existsSync(dataPath)) throw new Error('El archivo app.json no existe.');
       const data = fs.readFileSync(dataPath, 'utf8');
       fs.writeFileSync(filePath, data);
       console.log('Respaldo guardado en:', filePath);
@@ -80,7 +97,7 @@ ipcMain.handle('backup', async () => {
   }
 });
 
-// ✅ RESTAURAR
+// RESTAURAR
 ipcMain.handle('restore', async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
     title: 'Restaurar respaldo',

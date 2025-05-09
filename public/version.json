@@ -1,0 +1,12 @@
+# Crear archivo version.json con la versión actual del frontend (ejemplo: 1.0.2)
+
+frontend_version = {
+    "version": "1.0.2"
+}
+
+import json
+
+with open("/mnt/data/version.json", "w", encoding="utf-8") as f:
+    json.dump(frontend_version, f, indent=2)
+
+"/mnt/data/version.json"
