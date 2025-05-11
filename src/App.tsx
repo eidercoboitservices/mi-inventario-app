@@ -20,6 +20,7 @@ import UserManagement from './pages/admin/UserManagement';
 import Profile from './pages/auth/Profile';
 import Subscription from './pages/subscription/Subscription';
 import NotFound from './pages/NotFound';
+import Warehouses from './pages/inventory/Warehouses';
 
 // Backup/Restore buttons
 const BackupRestoreButtons = () => {
@@ -108,6 +109,7 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/inventory/products" element={<Products />} />
                 <Route path="/inventory/movements" element={<Movements />} />
+                <Route path="/inventory/warehouses" element={<Warehouses />} />
                 <Route path="/reports/history" element={<History />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/subscription" element={<Subscription />} />

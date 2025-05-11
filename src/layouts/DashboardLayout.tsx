@@ -12,7 +12,8 @@ import {
   LogOut,
   Menu,
   X,
-  Bell
+  Bell,
+  Building
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useInventory } from '../contexts/InventoryContext';
@@ -39,7 +40,6 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Mobile sidebar backdrop */}
       {sidebarOpen && (
         <div 
           className="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"
@@ -47,7 +47,6 @@ const DashboardLayout = () => {
         />
       )}
       
-      {/* Sidebar */}
       <div 
         className={`fixed inset-y-0 left-0 z-30 w-64 transition duration-300 transform bg-white border-r lg:translate-x-0 lg:static lg:inset-0 ${
           sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
@@ -79,6 +78,11 @@ const DashboardLayout = () => {
           <NavLink to="/inventory/products" className={navLinkClass}>
             <Box className="w-5 h-5 mr-3" />
             Products
+          </NavLink>
+          
+          <NavLink to="/inventory/warehouses" className={navLinkClass}>
+            <Building className="w-5 h-5 mr-3" />
+            Warehouses
           </NavLink>
           
           <NavLink to="/inventory/movements" className={navLinkClass}>
@@ -132,9 +136,7 @@ const DashboardLayout = () => {
         </nav>
       </div>
       
-      {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
         <header className="flex items-center justify-between px-6 py-4 bg-white border-b">
           <div className="flex items-center">
             <button
@@ -146,7 +148,6 @@ const DashboardLayout = () => {
           </div>
           
           <div className="flex items-center space-x-4">
-            {/* Notifications */}
             <div className="relative">
               <button className="flex text-gray-600 focus:outline-none">
                 <Bell className="h-6 w-6" />
@@ -154,11 +155,8 @@ const DashboardLayout = () => {
                   <span className="absolute top-0 right-0 inline-block w-3 h-3 bg-red-500 rounded-full"></span>
                 )}
               </button>
-              
-              {/* Notification dropdown could be added here */}
             </div>
             
-            {/* User menu */}
             <div className="relative">
               <button className="flex items-center text-gray-700 focus:outline-none">
                 <div className="flex items-center space-x-2">
@@ -168,13 +166,10 @@ const DashboardLayout = () => {
                   <span className="text-sm font-medium hidden md:block">{user?.name}</span>
                 </div>
               </button>
-              
-              {/* User dropdown could be added here */}
             </div>
           </div>
         </header>
         
-        {/* Main content */}
         <main className="flex-1 overflow-y-auto bg-gray-50 p-6">
           <Outlet />
         </main>

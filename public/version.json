@@ -1,7 +1,7 @@
 # Crear archivo version.json con la versión actual del frontend (ejemplo: 1.0.2)
 
 frontend_version = {
-    "version": "1.0.2"
+    "version": "1.1.2"
 }
 
 import json

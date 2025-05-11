@@ -23,7 +23,8 @@ const Dashboard = () => {
     products,
     movements,
     inventory,
-    config
+    config,
+    warehouses
   } = useInventory();
 
   const { user } = useAuth();

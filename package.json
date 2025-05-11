@@ -1,6 +1,6 @@
 {
   "name": "mi-inventario",
-  "version": "1.0.2",
+  "version": "1.1.2",
   "description": "Sistema de inventario de escritorio con React y Electron",
   "author": "eidercoboitservices <eidercoboitservices@gmail.com> (+57 3003925981)",
   "main": "main.js",
@@ -40,8 +40,11 @@
     ]
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "electron-updater": "^6.1.1",
+    "express": "^5.1.0",
     "lucide-react": "^0.503.0",
+    "pg": "^8.15.6",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.5.3",
