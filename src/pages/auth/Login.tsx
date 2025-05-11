@@ -13,8 +13,8 @@ const Login = () => {
 
   // Verificación de versión frontend y backend
   useEffect(() => {
-    const localFrontendVersion = '1.0.2';
-    const localBackendVersion = '1.0.2';
+    const localFrontendVersion = '1.1.2';
+    const localBackendVersion = '1.1.2';
 
     const checkVersions = async () => {
       try {

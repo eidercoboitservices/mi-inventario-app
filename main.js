@@ -17,15 +17,7 @@ function createWindow() {
 
   win.loadFile(path.join(__dirname, 'build', 'index.html'));
 
-  // Configurar FeedURL
-  autoUpdater.setFeedURL({
-    provider: 'github',
-    owner: 'eidercoboitservices',
-    repo: 'mi-inventario-app',
-    token: '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' // Si lo necesitas
-  });
-
-  // Manejo de actualizaciones
+  // Eventos del autoUpdater
   autoUpdater.on('checking-for-update', () => {
     console.log('Buscando actualizaciones...');
   });
@@ -40,12 +32,14 @@ function createWindow() {
 
   autoUpdater.on('error', (err) => {
     console.error('Error al buscar actualizaciones:', err);
-    new Notification({ title: 'Error de actualización', body: 'Hubo un problema al verificar las actualizaciones.' }).show();
+    new Notification({
+      title: 'Error de actualización',
+      body: 'Hubo un problema al verificar las actualizaciones.'
+    }).show();
   });
 
   autoUpdater.on('download-progress', (progressObj) => {
-    let log_message = `Descargando... ${Math.round(progressObj.percent)}%`;
-    console.log(log_message);
+    console.log(`Descargando... ${Math.round(progressObj.percent)}%`);
   });
 
   autoUpdater.on('update-downloaded', () => {
@@ -53,7 +47,7 @@ function createWindow() {
     autoUpdater.quitAndInstall();
   });
 
-  // Verificar actualizaciones al iniciar
+  // Verifica actualizaciones automáticamente
   autoUpdater.checkForUpdatesAndNotify();
 }
 
@@ -61,12 +55,12 @@ app.whenReady().then(() => {
   createDataFile();
   createWindow();
 
-  app.on('activate', function () {
+  app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
 
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 

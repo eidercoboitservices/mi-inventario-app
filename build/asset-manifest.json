@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "./static/css/main.7b4c64b6.css",
-    "main.js": "./static/js/main.a8c6c802.js",
-    "index.html": "./index.html",
-    "main.7b4c64b6.css.map": "./static/css/main.7b4c64b6.css.map",
-    "main.a8c6c802.js.map": "./static/js/main.a8c6c802.js.map"
+    "main.css": "/eidercoboitservices/mi-inventario-app/static/css/main.7b4c64b6.css",
+    "main.js": "/eidercoboitservices/mi-inventario-app/static/js/main.4c14ce4c.js",
+    "index.html": "/eidercoboitservices/mi-inventario-app/index.html",
+    "main.7b4c64b6.css.map": "/eidercoboitservices/mi-inventario-app/static/css/main.7b4c64b6.css.map",
+    "main.4c14ce4c.js.map": "/eidercoboitservices/mi-inventario-app/static/js/main.4c14ce4c.js.map"
   },
   "entrypoints": [
     "static/css/main.7b4c64b6.css",
-    "static/js/main.a8c6c802.js"
+    "static/js/main.4c14ce4c.js"
   ]
 }

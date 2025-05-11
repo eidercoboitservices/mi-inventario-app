@@ -4,7 +4,7 @@
   "description": "Sistema de inventario de escritorio con React y Electron",
   "author": "eidercoboitservices <eidercoboitservices@gmail.com> (+57 3003925981)",
   "main": "main.js",
-  "homepage": "./",
+  "homepage": "https://github.com/eidercoboitservices/mi-inventario-app",
   "scripts": {
     "start": "react-scripts start",
     "electron-start": "electron .",
@@ -12,7 +12,7 @@
     "electron-pack": "electron-builder"
   },
   "build": {
-    "appId": "com.mi-inventario",
+    "appId": "com.eidercoboitservices.mi-inventario",
     "productName": "Mi Inventario",
     "asar": true,
     "directories": {
