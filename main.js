@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Notification } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { autoUpdater } = require('electron-updater');
@@ -17,7 +17,15 @@ function createWindow() {
 
   win.loadFile(path.join(__dirname, 'build', 'index.html'));
 
-  // Mostrar mensajes durante el proceso de actualización
+  // Configurar FeedURL
+  autoUpdater.setFeedURL({
+    provider: 'github',
+    owner: 'eidercoboitservices',
+    repo: 'mi-inventario-app',
+    token: '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' // Si lo necesitas
+  });
+
+  // Manejo de actualizaciones
   autoUpdater.on('checking-for-update', () => {
     console.log('Buscando actualizaciones...');
   });
@@ -32,6 +40,7 @@ function createWindow() {
 
   autoUpdater.on('error', (err) => {
     console.error('Error al buscar actualizaciones:', err);
+    new Notification({ title: 'Error de actualización', body: 'Hubo un problema al verificar las actualizaciones.' }).show();
   });
 
   autoUpdater.on('download-progress', (progressObj) => {
@@ -43,12 +52,14 @@ function createWindow() {
     console.log('Actualización descargada. Reiniciando aplicación...');
     autoUpdater.quitAndInstall();
   });
+
+  // Verificar actualizaciones al iniciar
+  autoUpdater.checkForUpdatesAndNotify();
 }
 
 app.whenReady().then(() => {
   createDataFile();
   createWindow();
-  autoUpdater.checkForUpdatesAndNotify();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
